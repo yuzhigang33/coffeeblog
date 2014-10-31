@@ -1,4 +1,4 @@
 coffeeblog
 ==========
 
-a very simple bolg write by coffeescript
+A very very simple bolg system write by coffee-script.
