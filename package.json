@@ -1,0 +1,24 @@
+{
+  "name": "coffeeblog",
+  "version": "1.0.0",
+  "description": "A pretty simple blog system write by coffee-script",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuzhigang33/coffeeblog.git"
+  },
+  "keywords": [
+    "coffeescript",
+    "blog",
+    "node.js"
+  ],
+  "author": "yuzhigang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yuzhigang33/coffeeblog/issues"
+  },
+  "homepage": "https://github.com/yuzhigang33/coffeeblog"
+}
