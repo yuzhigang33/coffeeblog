@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/yuzhigang33/coffeeblog/issues"
   },
-  "homepage": "https://github.com/yuzhigang33/coffeeblog"
+  "homepage": "https://github.com/yuzhigang33/coffeeblog",
+  "dependencies": {
+    "sqlite3": "~3.0.2"
+  }
 }
