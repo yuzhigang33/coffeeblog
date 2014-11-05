@@ -1,7 +1,9 @@
 http = require 'http'
 sqlite3 = require('sqlite3').verbose()
 
-dbFile = 'blog.db'
+options = require './config.json'
+
+dbFile = options.db
 
 ## list all articles
 listArticles = (req, res) ->
@@ -10,7 +12,7 @@ listArticles = (req, res) ->
   db.all "SELECT * FROM articles", (err, rows) ->
     rows.forEach (row) ->
       titles.push row.aid + ": " + row.title
-  
+
     res.writeHead 200, {'Content-Type': 'text/plain'}
     res.end titles.join '\n'
     db.close();
@@ -19,5 +21,5 @@ listArticles = (req, res) ->
 onRequest = (req, res) ->
   listArticles req, res
 
-http.createServer(onRequest).listen 8080, "0.0.0.0"
+http.createServer(onRequest).listen options.port, options.host
 console.log 'server started...'
