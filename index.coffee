@@ -17,9 +17,14 @@ listArticles = (req, res) ->
     res.end titles.join '\n'
     db.close();
 
-
 onRequest = (req, res) ->
-  listArticles req, res
+
+  if req.method is 'GET'
+    switch  req.url
+      when "/" then listArticles req, res
+      when "/new_article" then res.end "new article"
+      else res.end "not support router"
 
 http.createServer(onRequest).listen options.port, options.host
+
 console.log 'server started...'
