@@ -8,13 +8,16 @@ dbFile = options.db
 ## list all articles
 listArticles = (req, res) ->
   titles = []
+
   db = new sqlite3.Database dbFile
   db.all "SELECT * FROM articles", (err, rows) ->
-    rows.forEach (row) ->
-      titles.push row.aid + ": " + row.title
-
+    # rows.forEach (row) ->
+      # titles.push row.aid + ": " + row.title
+    articles = JSON.stringify rows
+    
     res.writeHead 200, {'Content-Type': 'text/plain'}
-    res.end titles.join '\n'
+    res.end articles
+    # res.end titles.join '\n'
     db.close();
 
 onRequest = (req, res) ->
