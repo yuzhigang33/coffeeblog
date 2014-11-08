@@ -1,4 +1,6 @@
 http = require 'http'
+fs = require 'fs'
+url = require 'url'
 sqlite3 = require('sqlite3').verbose()
 swig = require 'swig'
 
@@ -24,13 +26,29 @@ listArticles = (req, res) ->
     res.end()
     db.close()
 
+sendCSS = (req, res) ->
+  res.writeHead 200, {'Content-Type': 'text/css'}
+  res.write(fs.readFileSync __dirname + path, 'utf8')
+
 onRequest = (req, res) ->
 
   if req.method is 'GET'
-    switch  req.url
+
+    pathname = url.parse(req.url).pathname
+
+    switch  pathname
       when "/" then listArticles req, res
       when "/new_article" then res.end "new article"
-      else res.end "not support router"
+      else
+        if /\.(css)$/.test(pathname)
+          res.writeHead 200, {'Content-Type': 'text/css'}
+          res.write(fs.readFileSync __dirname + pathname)
+          res.end()
+        else if /\.(js)$/.test(pathname)
+          res.writeHead 200, {'Content-Type': 'text/javascript'}
+          res.write(fs.readFileSync __dirname + pathname)
+          res.end()
+        else res.end '404'
 
 http.createServer(onRequest).listen options.port, options.host
 

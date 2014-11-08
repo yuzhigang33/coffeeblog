@@ -7,7 +7,8 @@
     <title>CoffeeBlog</title>
 
     <!-- Bootstrap -->
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap-theme.min.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,12 +41,13 @@
 
     <div class="container">
 
-      <div class="starter-template">
+      <div class="">
         {% for article in articles %}
-          <h1>{{ article.title }}</h1>
-          <p class="lead">
+          <h3><a href="#">{{ article.title }}</a></h3>
+          <span>{{ article.posttime }}</span>
+          <!-- <p class="lead">
             {{ article.content }}
-          </p>
+          </p> -->
         {% endfor %}
       </div>
 
@@ -53,6 +55,6 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
   </body>
 </html>
