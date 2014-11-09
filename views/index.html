@@ -43,7 +43,7 @@
 
       <div class="">
         {% for article in articles %}
-          <h3><a href="#">{{ article.title }}</a></h3>
+          <h3><a href="/article?aid={{article.aid}}">{{ article.title }}</a></h3>
           <span>{{ article.posttime }}</span>
           <!-- <p class="lead">
             {{ article.content }}
