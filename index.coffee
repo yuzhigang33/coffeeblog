@@ -34,6 +34,19 @@ showArticle = (req, res) ->
     res.end()
     db.close()
 
+addArticle = (req, res) ->
+  db = new sqlite3.Database dbFile
+  aid = '5'
+  title = 'title 555'
+  content = 'content 55555555555555555555555555555555'
+  db.run "INSERT INTO articles values ('#{aid}', '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
+    if err
+      console.log err, 'reeeeeeerrrrrr'
+      res.end();
+    res.writeHead 200, {'Content-Type': 'text/html'}
+    res.end("insert success")
+    db.close()
+
 onRequest = (req, res) ->
 
   if req.method is 'GET'
@@ -42,6 +55,7 @@ onRequest = (req, res) ->
     switch  pathname
       when "/" then listArticles req, res
       when "/article" then showArticle req, res
+      when "/new_article" then addArticle req, res
       else
         if /\.(css)$/.test(pathname)
           res.writeHead 200, {'Content-Type': 'text/css'}
