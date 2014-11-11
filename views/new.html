@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{{article.title}}</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/custom.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="sticky-footer.css" rel="stylesheet"> -->
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <!-- Begin page content -->
+    <div class="container">
+      <!-- <div class="page-header">
+        <h1>{{ article.title }}</h1>
+      </div> -->
+      <h1></h1>
+      <div class="">
+          <form role="form" method="POST" action="/new_article">
+              <div class="input-group">
+                <span class="input-group-addon">Title:</span>
+                <input type="text" class="form-control" name="title" id="title" placeholder="Article title">
+              </div>
+              <h1></h1>
+              <div class="form-group">
+                  <textarea name="content" id="content" class="form-control" rows="20"></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p class="text-muted">Place sticky footer content here.</p>
+      </div>
+    </div>
+
+  </body>
+</html>
