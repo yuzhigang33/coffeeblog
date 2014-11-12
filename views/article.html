@@ -66,20 +66,11 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/js/bootstrap.min.js"></script>
 <script charset="utf-8">
-  // $(document).ready(function () {
-    // $('a[href="'+ window.location.pathname +'"]').parent().addClass('active');
-    //  $('ul a[href="' + this.location.pathname + '"]').parents('li').addClass('active');
-    // $('ul.nav > li').click(function (e) {
-    //     $('ul.nav > li').removeClass('active');
-    //     $(this).addClass('active');
-    //     e.preventDefault();
-    // });
     $(".nav a").on("click", function(){
       console.log('ccccccccc');
       $(".nav").find(".active").removeClass("active");
       $(this).parent().addClass("active");
     });
-  // });
 </script>
 
   </body>

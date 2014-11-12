@@ -39,7 +39,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/">Home</a></li>
-            <li><a href="/new_article">New article</a></li>
+            <li class="active"><a href="/new_article">New article</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
@@ -79,23 +79,12 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="assets/js/bootstrap.min.js"></script>
 <script charset="utf-8">
-  $(document).ready(function () {
-    // $('a[href="'+ window.location.pathname +'"]').parent().addClass('active');
-    //  $('ul a[href="' + this.location.pathname + '"]').parents('li').addClass('active');
-    // $('ul.nav > li').click(function (e) {
-    //   console.log('ccccccccjjjjjj');
-    //     $('ul.nav > li').removeClass('active');
-    //     // $(this).addClass('active');
-    //     $('ul a[href="' + this.location.pathname + '"]').parents('li').addClass('active');
-    //     e.preventDefault();
-    // });
-    $(".nav a[href='" + this.location.pathname + "']").on("click", function(){
+    $(".nav a").on("click", function(){
       console.log('ccccccccc');
       console.log($(".nav"));
       $(".nav").find(".active").removeClass("active");
       $(this).parent().addClass("active");
     });
-  });
 </script>
 
   </body>
