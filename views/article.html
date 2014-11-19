@@ -61,17 +61,17 @@
         <p class="text-muted">Place sticky footer content here.</p>
       </div>
     </div>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="assets/js/bootstrap.min.js"></script>
-<script charset="utf-8">
-    $(".nav a").on("click", function(){
-      console.log('ccccccccc');
-      $(".nav").find(".active").removeClass("active");
-      $(this).parent().addClass("active");
-    });
-</script>
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script charset="utf-8">
+      $(".nav a").on("click", function(){
+        $(".nav").find(".active").removeClass("active");
+        $(this).parent().addClass("active");
+      });
+  </script>
 
   </body>
 </html>

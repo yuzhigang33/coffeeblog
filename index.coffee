@@ -60,6 +60,9 @@ addArticle = (req, res) ->
       res.end "submit success"
       db.close()
 
+deleteArticle = (req, res) ->
+
+
 onRequest = (req, res) ->
   pathname = url.parse(req.url).pathname
 
