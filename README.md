@@ -1,7 +1,7 @@
 coffeeblog
 ==========
 
-A very very simple bolg system write by coffee-script.
+A very very simple bolg system writen by coffee-script.
 
 
 todo: material design ui
