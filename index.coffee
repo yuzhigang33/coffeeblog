@@ -12,7 +12,6 @@ dbFile = options.db
 
 ## list all articles
 listArticles = (req, res) ->
-
   db = new sqlite3.Database dbFile
   db.all "SELECT * FROM articles", (err, rows) ->
     text = swig.renderFile 'views/index.html',
@@ -54,13 +53,27 @@ addArticle = (req, res) ->
     db = new sqlite3.Database dbFile
     db.run "INSERT INTO articles values (NULL, '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
       if err
-        console.log err, 'reeeeeeerrrrrr'
         res.end 'error'
       res.writeHead 200, {'Content-Type': 'text/html'}
       res.end "submit success"
       db.close()
 
 deleteArticle = (req, res) ->
+  item = url.parse req.url
+  aid = item.query.split('=')[1]
+
+  db = new sqlite3.Database dbFile
+  db.run "DELETE FROM articles WHERE aid=#{aid}", (err) ->
+    if err
+      res.end 'error'
+    db.all "SELECT * FROM articles", (err, rows) ->
+      text = swig.renderFile 'views/index.html',
+              articles: rows
+
+      res.writeHead 200, {'Content-Type': 'text/html'}
+      res.write text
+      res.end()
+      db.close()
 
 
 onRequest = (req, res) ->
@@ -71,6 +84,7 @@ onRequest = (req, res) ->
       when "/" then listArticles req, res
       when "/article" then showArticle req, res
       when "/new_article" then newArticle req, res
+      when "/delete" then deleteArticle req, res
       else
         if /\.(css)$/.test(pathname)
           res.writeHead 200, {'Content-Type': 'text/css'}
