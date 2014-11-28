@@ -1,3 +1,7 @@
+"use strict";
+
+require('coffee-script-es6').register();
+
 http = require 'http'
 fs = require 'fs'
 url = require 'url'
@@ -101,5 +105,11 @@ onRequest = (req, res) ->
       else res.end '404'
 
 http.createServer(onRequest).listen options.port, options.host
+
+spawn -->
+  console.log "I am starting"
+  yield delay 500
+  console.log "Just waited for a bit, no worries"
+  console.log "Enough now"
 
 console.log 'server started...'
