@@ -1,14 +1,11 @@
 "use strict";
 
-require('coffee-script-es6').register();
-
 http = require 'http'
 fs = require 'fs'
 url = require 'url'
-querystring = require 'querystring'
+qs = require 'querystring'
 sqlite3 = require('sqlite3').verbose()
 swig = require 'swig'
-colors = require 'colors'
 
 options = require './config.json'
 
@@ -38,6 +35,7 @@ showArticle = (req, res) ->
 
   db = new sqlite3.Database dbFile
   db.get "SELECT * FROM articles where aid=#{aid}", (err, row) ->
+    row.content = row.content.split '\r\n'
     text = swig.renderFile 'views/article.html',
             article: row
     res.writeHead 200, {'Content-Type': 'text/html'}
@@ -51,12 +49,13 @@ addArticle = (req, res) ->
     buffer += chunk.toString()
 
   req.on 'end', () ->
-    body = querystring.parse buffer
+    body = qs.parse buffer
     title = body.title
     content = body.content
     db = new sqlite3.Database dbFile
     db.run "INSERT INTO articles values (NULL, '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
       if err
+        console.log err
         res.end 'error'
       res.writeHead 200, {'Content-Type': 'text/html'}
       res.end "submit success"
@@ -105,11 +104,5 @@ onRequest = (req, res) ->
       else res.end '404'
 
 http.createServer(onRequest).listen options.port, options.host
-
-spawn -->
-  console.log "I am starting"
-  yield delay 500
-  console.log "Just waited for a bit, no worries"
-  console.log "Enough now"
 
 console.log 'server started...'

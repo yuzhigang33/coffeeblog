@@ -52,7 +52,16 @@
       <div class="page-header" style="margin-top: 80px;">
         <h1>{{ article.title }}</h1>
       </div>
-      <p class="lead">{{ article.content }}</p>
+
+      <!-- <p class="lead">{{ article.content }}</p> -->
+
+      {% for p in article.content %}
+        <p>
+          {{ p }}
+        </p>
+      {% endfor %}
+
+
     </div>
 
     <div class="footer">

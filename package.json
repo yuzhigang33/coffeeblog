@@ -22,8 +22,6 @@
   },
   "homepage": "https://github.com/yuzhigang33/coffeeblog",
   "dependencies": {
-    "coffee-script-es6": "~1.7.3",
-    "koa": "~0.13.0",
     "sqlite3": "~3.0.2",
     "swig": "~1.4.2"
   },
