@@ -17,6 +17,7 @@ listArticles = (req, res) ->
   db.all "SELECT * FROM articles", (err, rows) ->
     text = swig.renderFile 'views/index.html',
             articles: rows
+            admin: true
 
     res.writeHead 200, {'Content-Type': 'text/html'}
     res.write text

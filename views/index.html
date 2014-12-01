@@ -46,11 +46,13 @@
 
       <div class="">
         {% for article in articles %}
+          <div id="{{article.aid}}">
           <h3><a href="/article?aid={{article.aid}}">{{ article.title }}</a></h3>
-          <span>{{ article.posttime }}</span> <span><a href="/delete?aid={{article.aid}}">删除</a></span>
+          <span>{{ article.posttime }}</span> <span><a href="/delete?aid={{article.aid}}">{% if admin %} 删除 {% endif %}</a></span>
           <!-- <p class="lead">
             {{ article.content }}
           </p> -->
+          </div>
         {% endfor %}
       </div>
 
