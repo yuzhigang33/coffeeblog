@@ -7,18 +7,18 @@ qs = require 'querystring'
 sqlite3 = require('sqlite3').verbose()
 swig = require 'swig'
 
-options = require './config.json'
-
-dbFile = options.db
+options =
+  host: "localhost"
+  port: 8000
+  db:   "blog.db"
 
 ## list all articles
 listArticles = (req, res) ->
-  db = new sqlite3.Database dbFile
+  db = new sqlite3.Database options.db
   db.all "SELECT * FROM articles", (err, rows) ->
     text = swig.renderFile 'views/index.html',
             articles: rows
             admin: true
-
     res.writeHead 200, {'Content-Type': 'text/html'}
     res.write text
     res.end()
@@ -34,7 +34,7 @@ showArticle = (req, res) ->
   item = url.parse req.url
   aid = item.query.split('=')[1]
 
-  db = new sqlite3.Database dbFile
+  db = new sqlite3.Database options.db
   db.get "SELECT * FROM articles where aid=#{aid}", (err, row) ->
     row.content = row.content.split '\r\n'
     text = swig.renderFile 'views/article.html',
@@ -53,20 +53,24 @@ addArticle = (req, res) ->
     body = qs.parse buffer
     title = body.title
     content = body.content
-    db = new sqlite3.Database dbFile
+    db = new sqlite3.Database options.db
     db.run "INSERT INTO articles values (NULL, '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
       if err
         console.log err
         res.end 'error'
-      res.writeHead 200, {'Content-Type': 'text/html'}
-      res.end "submit success"
-      db.close()
+      db.all "SELECT * FROM articles", (err, rows) ->
+        text = swig.renderFile 'views/index.html',
+                articles: rows
+        res.writeHead 200, {'Content-Type': 'text/html'}
+        res.write text
+        res.end()
+        db.close()
 
 deleteArticle = (req, res) ->
   item = url.parse req.url
   aid = item.query.split('=')[1]
 
-  db = new sqlite3.Database dbFile
+  db = new sqlite3.Database options.db
   db.run "DELETE FROM articles WHERE aid=#{aid}", (err) ->
     if err
       res.end 'error'
