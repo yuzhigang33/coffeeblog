@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 http = require 'http'
 fs = require 'fs'
