@@ -1,7 +1,7 @@
 {
-  "name": "coffeeblog",
+  "name": "coffee-blog",
   "version": "1.0.0",
-  "description": "A pretty simple blog system writen by coffee-script",
+  "description": "A pretty simple blog system writen with coffee-script",
   "main": "index.js",
   "scripts": {
     "test": "npm test"

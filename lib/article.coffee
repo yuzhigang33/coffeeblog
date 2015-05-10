@@ -1,29 +1,34 @@
 'use strict'
 
+url = require 'url'
+qs = require 'querystring'
+swig = require 'swig'
 sqlite3 = require 'sqlite3'
-option = require '../config'
+options = require '../config'
 
 sqlite3 = sqlite3.verbose()
 
 class Article
-  showList: ->
+  constructor: ->
+
+  showList: (req, res) ->
     db = new sqlite3.cached.Database options.db
     db.all "SELECT * FROM articles", (err, rows) ->
       text = swig.renderFile 'views/index.html',
               articles: rows
-              admin: true
+              admin: true # todo
       res.writeHead 200, {'Content-Type': 'text/html'}
       res.write text
       res.end()
-      db.close()
+      # db.close()
 
-  newArticle = (req, res) ->
+  newArticle: (req, res) ->
     text = swig.renderFile 'views/new.html'
     res.writeHead 200, {'Content-Type': 'text/html'}
     res.write text
     res.end()
 
-  showArticle = (req, res) ->
+  showArticle: (req, res) ->
     item = url.parse req.url
     aid = item.query.split('=')[1]
 
@@ -37,7 +42,7 @@ class Article
       res.end()
       db.close()
 
-  addArticle = (req, res) ->
+  addArticle: (req, res) ->
     buffer = ""
     req.on 'data', (chunk) ->
       buffer += chunk.toString()
@@ -59,7 +64,7 @@ class Article
           res.end()
           db.close()
 
-  deleteArticle = (req, res) ->
+  deleteArticle: (req, res) ->
     item = url.parse req.url
     aid = item.query.split('=')[1]
 
@@ -76,4 +81,4 @@ class Article
         res.end()
         db.close()
 
-module.exports = Artilce
+module.exports = new Article()
