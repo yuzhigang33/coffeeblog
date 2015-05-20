@@ -1,9 +1,8 @@
-"use strict"
+'use strict'
 
 http = require 'http'
 fs = require 'fs'
 url = require 'url'
-qs = require 'querystring'
 Article = require './lib/article'
 options = require './config'
 
