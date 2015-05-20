@@ -24,7 +24,12 @@ onRequest = (req, res) ->
           res.writeHead 200, {'Content-Type': 'text/javascript'}
           res.write(fs.readFileSync __dirname + pathname)
           res.end()
-        else res.end '404'
+        else if /favicon.ico/.test(pathname)
+          res.writeHead 200
+          res.write(fs.readFileSync __dirname + '/assets/favicon.ico')
+          res.end()
+        else
+          res.end '404'
   else if req.method is 'POST'
     switch pathname
       when "/new_article" then Article.addArticle req, res
