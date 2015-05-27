@@ -2,3 +2,4 @@ node_modules/
 npm-debug.log
 blog.db
 .DS_Store
+coverage/

@@ -23,10 +23,15 @@
   "homepage": "https://github.com/yuzhigang33/coffeeblog",
   "dependencies": {
     "express": "^4.12.4",
+    "sequelize": "~3.1.1",
     "sqlite3": "~3.0.2",
     "swig": "~1.4.2"
   },
   "devDependencies": {
-    "colors": "~1.0.3"
+    "chai": "^2.3.0",
+    "coffee-coverage": "^0.6.0",
+    "colors": "~1.0.3",
+    "istanbul": "^0.3.14",
+    "mocha": "^2.2.5"
   }
 }

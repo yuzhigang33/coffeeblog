@@ -20,14 +20,15 @@ CREATE TABLE `articles` (
   `aid` INTEGER PRIMARY KEY NOT NULL,
   `title` varchar(20) NULL,
   `content` text,
-  `posttime` datetime NULL
+  `updatedAt` datetime NULL,
+  `createdAt` datetime NULL
 );
 
 -- ----------------------------
 -- Records of articles
 -- ----------------------------
-INSERT INTO `articles` VALUES ('1', 'test article', 'test content', '2013-02-27 22:38:39');
-INSERT INTO `articles` VALUES ('2', '标题', '内容', '2014-11-04 07:38:39');
+INSERT INTO `articles` VALUES ('1', 'test article', 'test content', '2013-02-27 22:38:39', '2013-02-27 22:38:39');
+INSERT INTO `articles` VALUES ('2', '标题', '内容', '2014-11-04 07:38:39', '2013-02-27 22:38:39');
 
 -- ----------------------------
 -- Table structure for `sessions`
