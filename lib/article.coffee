@@ -5,22 +5,28 @@ qs = require 'querystring'
 swig = require 'swig'
 sqlite3 = require 'sqlite3'
 options = require '../config'
+db = require './db'
 
 sqlite3 = sqlite3.verbose()
 
 class Article
   constructor: ->
+    @articles = db.articles
 
-  showList: (req, res) ->
-    db = new sqlite3.cached.Database options.db
-    db.all "SELECT * FROM articles", (err, rows) ->
-      text = swig.renderFile 'views/index.html',
-              articles: rows
-              admin: true # todo
-      res.writeHead 200, {'Content-Type': 'text/html'}
-      res.write text
-      res.end()
-      # db.close()
+  showList: (req, res) =>
+    @articles.findAll()
+      .then (result) =>
+        articles = []
+        for article in result
+          articles.push article.dataValues
+        text = swig.renderFile 'views/index.html',
+                articles: articles
+                admin: true # todo
+        res.writeHead 200, {'Content-Type': 'text/html'}
+        res.write text
+        res.end()
+      .catch (err) ->
+        res.end err.toString()
 
   newArticle: (req, res) ->
     text = swig.renderFile 'views/new.html'
