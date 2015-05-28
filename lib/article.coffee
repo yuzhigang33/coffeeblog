@@ -34,19 +34,21 @@ class Article
     res.write text
     res.end()
 
-  showArticle: (req, res) ->
+  showArticle: (req, res) =>
     item = url.parse req.url
-    aid = item.query.split('=')[1]
-
-    db = new sqlite3.Database options.db
-    db.get "SELECT * FROM articles where aid=#{aid}", (err, row) ->
-      row.content = row.content.split '\r\n'
-      text = swig.renderFile 'views/article.html',
-              article: row
-      res.writeHead 200, {'Content-Type': 'text/html'}
-      res.write text
-      res.end()
-      db.close()
+    qry = qs.parse item.query
+    aid = qry.aid
+    @articles.findById aid
+      .then (result) ->
+        article = result.dataValues
+        article.content = article.content.split '\r\n'
+        text = swig.renderFile 'views/article.html',
+                  article: article
+          res.writeHead 200, {'Content-Type': 'text/html'}
+          res.write text
+          res.end()
+      .catch (err) ->
+        res.end err.toString()
 
   addArticle: (req, res) ->
     buffer = ""
