@@ -50,27 +50,39 @@ class Article
       .catch (err) ->
         res.end err.toString()
 
-  addArticle: (req, res) ->
+  addArticle: (req, res) =>
     buffer = ""
     req.on 'data', (chunk) ->
       buffer += chunk.toString()
 
-    req.on 'end', () ->
+    req.on 'end', () =>
       body = qs.parse buffer
       title = body.title
       content = body.content
-      db = new sqlite3.Database options.db
-      db.run "INSERT INTO articles values (NULL, '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
-        if err
-          console.log err
-          res.end 'error'
-        db.all "SELECT * FROM articles", (err, rows) ->
-          text = swig.renderFile 'views/index.html',
-                  articles: rows
-          res.writeHead 200, {'Content-Type': 'text/html'}
-          res.write text
-          res.end()
-          db.close()
+      @articles.create
+        title: "#{title}"
+        content: "#{content}"
+        createdAt: Date()
+      .then (result) ->
+        article = result.dataValues
+        article.content = article.content.split '\r\n'
+        text = swig.renderFile 'views/article.html',
+                article: article
+        res.writeHead 200, {'Content-Type': 'text/html'}
+        res.write text
+        res.end()
+      # db = new sqlite3.Database options.db
+      # db.run "INSERT INTO articles values (NULL, '#{title}', '#{content}', datetime('now','localtime'))", (err) ->
+      #   if err
+      #     console.log err
+      #     res.end 'error'
+      #   db.all "SELECT * FROM articles", (err, rows) ->
+      #     text = swig.renderFile 'views/index.html',
+      #             articles: rows
+      #     res.writeHead 200, {'Content-Type': 'text/html'}
+      #     res.write text
+      #     res.end()
+      #     db.close()
 
   deleteArticle: (req, res) ->
     item = url.parse req.url
